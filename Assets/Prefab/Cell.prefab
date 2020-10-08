@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2895609809380630852}
   - component: {fileID: 2895609809380630855}
   - component: {fileID: 2895609809380630854}
-  - component: {fileID: 2895609809380630858}
+  - component: {fileID: 6674547573628717995}
   m_Layer: 0
   m_Name: Cell
   m_TagString: Untagged
@@ -89,13 +89,13 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2895609809380630849}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2895609809380630858
+--- !u!114 &6674547573628717995
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skins:
-  - {fileID: 2100000, guid: 17a98146745e05c4ea315addb7713be0, type: 2}
   - {fileID: 2100000, guid: 976e07698d962be4fafd0aa6883d2818, type: 2}
-  isAlive: 1
+  - {fileID: 2100000, guid: 17a98146745e05c4ea315addb7713be0, type: 2}
+  isAlive: 0
   position: {x: 0, y: 0}

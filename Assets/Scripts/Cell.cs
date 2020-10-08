@@ -1,23 +1,33 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(MeshRenderer))]
 public class Cell : MonoBehaviour
 {
     public Material[] skins;
-    MeshRenderer renderer;
 
     public bool isAlive;
 
-    public Vector2Int position;
+    public Vector2 position;
 
-    private void Start()
+    void Start()
     {
-        renderer = GetComponent<MeshRenderer>();
+
+    }
+
+    private void OnMouseDown()
+    {
+        SetAlive(!isAlive);
+    }
+
+    public void UpdateCellDisplay()
+    {
+        GetComponent<Renderer>().material = (isAlive ? skins[1] : skins[0]);
     }
 
     public void SetAlive(bool alive)
     {
         isAlive = alive;
-        renderer.material = (isAlive ? skins[0] : skins[1]);
+        UpdateCellDisplay();
     }
 
 }

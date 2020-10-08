@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CellGrid : MonoBehaviour
 {
-    public Transform cellPrefab;
+    public Cell cellPrefab;
 
     public Cell[,] cellGrid;
     GameObject grid;
@@ -16,12 +16,25 @@ public class CellGrid : MonoBehaviour
     private void Start()
     {
         generation = 0;
+        GenerateGrid();
+        StartCoroutine(RunSimulation());
     }
 
 
     Vector3 CoordToPosition(int x, int y)
     {
         return new Vector3(-gridSize.x / 2 + 0.5f + x, 0f, -gridSize.y / 2 + 0.5f + y);
+    }
+
+    public void DisplayCellGrid()
+    {
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                cellGrid[x, y].UpdateCellDisplay();
+            }
+        }
     }
 
     public void GenerateGrid()
@@ -34,6 +47,7 @@ public class CellGrid : MonoBehaviour
         Transform gridHolder = new GameObject(holderName).transform;
         gridHolder.parent = transform;
 
+        cellGrid = new Cell[(int)gridSize.x, (int)gridSize.y];
 
 
         for (int x = 0; x < gridSize.x; x++)
@@ -41,44 +55,59 @@ public class CellGrid : MonoBehaviour
             for (int y = 0; y < gridSize.y; y++)
             {
                 Vector3 cellPosition = CoordToPosition(x, y);
-                Transform newCell = Instantiate(cellPrefab, cellPosition, Quaternion.Euler(Vector3.right * 90)) as Transform;
-                newCell.parent = gridHolder;
+                Cell newCell = Instantiate(cellPrefab, cellPosition, Quaternion.Euler(Vector3.right * 90f), gridHolder);
+                newCell.SetAlive(false);
+                cellGrid[x, y] = newCell;
             }
         }
+
+       // RandomizeGrid();
     }
 
 
 
     /*****************************************************************/
 
+    /** Simulator **/
+
+    public bool isSimulating;
 
     public Cell GetCell(int xPos, int yPos)
     {
-        return null;
+        return cellGrid[xPos, yPos];
     }
 
     public int GetNeighborCount(int xPos, int yPos)
     {
         int neighbors = 0;
 
-        for (int x = -1; x < 1; x++)
+        for (int x = -1; x < 2; x++)
         {
-            for (int y = -1; y < 1; y++)
+            for (int y = -1; y < 2; y++)
             {
-                neighbors += GetCell(x, y).isAlive ? 1 : 0;
+                try
+                {
+                    neighbors += GetCell(xPos + x, yPos + y).isAlive ? 1 : 0;
+                }
+                catch { }
             }
         }
 
         // Subtract the current cell if it's alive
-        return neighbors -= GetCell(xPos, yPos).isAlive ? 1 : 0;
+        neighbors -= GetCell(xPos, yPos).isAlive ? 1 : 0;
+        return neighbors;
     }
-
-
-
 
     public void RandomizeGrid()
     {
-
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                int ran = Random.Range(0, 5);
+                GetCell(x, y).SetAlive(ran % 5 == 0);
+            }
+        }
     }
 
 
@@ -91,10 +120,10 @@ public class CellGrid : MonoBehaviour
             for (int y = 0; y < gridSize.y; y++)
             {
                 int neighborCount = GetNeighborCount(x, y);
-                bool alive = false;
+                bool alive;
                 if (GetCell(x, y).isAlive)
                 {
-                    if (neighborCount <= 1 || neighborCount >= 4)
+                    if (neighborCount < 2 || neighborCount > 3)
                     {
                         alive = false;
                     } else
@@ -115,4 +144,18 @@ public class CellGrid : MonoBehaviour
             }
         }
     }
+
+    public IEnumerator RunSimulation()
+    {
+        while (true)
+        {
+            if (isSimulating)
+            {
+               SimulateGeneration();
+               DisplayCellGrid();
+            }
+            yield return null;
+        }
+    }
+
 }
