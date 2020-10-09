@@ -8,15 +8,5 @@ public class CellGridEditor : Editor
     {
         base.OnInspectorGUI();
 
-        CellGrid grid = target as CellGrid;
-        
-        if (GUILayout.Button("Create Grid"))
-        {
-            grid.GenerateGrid();
-        }
-        if (GUILayout.Button("Simulate Generation"))
-        {
-            grid.SimulateGeneration();
-        }
     }
 }
