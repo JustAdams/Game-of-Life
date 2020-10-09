@@ -17,7 +17,23 @@ public class Simulator : MonoBehaviour
 
     public bool isSimulating;
 
+    public void SetHeight(int height)
+    {
+        gridSize.y = height;    
+    }
+
+    public void SetWidth(int width)
+    {
+        gridSize.x = width;
+    }
+
+    public void SetSimSpeed(float speed)
+    {
+        simSpeed = speed;
+    }
+
     int generation;
+    public float simSpeed = 1f;
 
     private void Start()
     {
@@ -27,6 +43,8 @@ public class Simulator : MonoBehaviour
 
     public void CreateNewGrid()
     {
+        StopCoroutine(RunSimulation());
+        isSimulating = false;
         generation = 0;
         cellGrid = cellGridObject.GenerateGrid(gridSize.x, gridSize.y);
         StartCoroutine(RunSimulation());
@@ -41,7 +59,7 @@ public class Simulator : MonoBehaviour
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                cellGrid[x, y].UpdateCellDisplay();
+                cellGrid[x, y].UpdateAlive();
             }
         }
     }
@@ -65,11 +83,7 @@ public class Simulator : MonoBehaviour
         {
             for (int y = -1; y < 2; y++)
             {
-                try
-                {
-                    neighbors += GetCell(xPos + x, yPos + y).isAlive ? 1 : 0;
-                }
-                catch { }
+                neighbors += GetCell(xPos + x, yPos + y).isAlive ? 1 : 0;
             }
         }
 
@@ -106,9 +120,9 @@ public class Simulator : MonoBehaviour
     {
         generation++;
 
-        for (int x = 0; x < gridSize.x; x++)
+        for (int x = 1; x < gridSize.x - 1; x++)
         {
-            for (int y = 0; y < gridSize.y; y++)
+            for (int y = 1; y < gridSize.y - 1; y++)
             {
                 int neighborCount = GetNeighborCount(x, y);
                 bool alive;
@@ -134,7 +148,7 @@ public class Simulator : MonoBehaviour
                         alive = false;
                     }
                 }
-                GetCell(x, y).SetAlive(alive);
+                GetCell(x, y).SetTempAlive(alive);
             }
         }
     }
@@ -145,6 +159,13 @@ public class Simulator : MonoBehaviour
     public void ToggleSimulation()
     {
         isSimulating = !isSimulating;
+        if (isSimulating)
+        {
+            simulateButton.GetComponentInChildren<Text>().text = "Stop Simulation";
+        } else
+        {
+            simulateButton.GetComponentInChildren<Text>().text = "Start Simulation";
+        }
     }
 
 
@@ -157,7 +178,7 @@ public class Simulator : MonoBehaviour
                 SimulateGeneration();
                 DisplayCellGrid();
             }
-            yield return null;
+            yield return new WaitForSeconds(simSpeed);
         }
     }
 }
