@@ -27,7 +27,7 @@ public class Cell : MonoBehaviour
 
     public void UpdateCellDisplay()
     {
-        GetComponent<Renderer>().enabled = isAlive;
+        GetComponent<Renderer>().material = isAlive ? skins[1] : skins[0];
     }
 
     public void SetTempAlive(bool alive)
