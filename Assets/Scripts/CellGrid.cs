@@ -7,7 +7,6 @@ public class CellGrid : MonoBehaviour
     Vector2Int gridSize;
 
 
-    
     /// <summary>
     /// Return  object position given grid coordinates
     /// </summary>

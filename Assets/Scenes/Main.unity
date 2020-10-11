@@ -443,7 +443,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230869286}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -587,9 +587,12 @@ MonoBehaviour:
   simulateButton: {fileID: 1108789307}
   resetButton: {fileID: 521847395}
   generationText: {fileID: 1209573716}
+  widthInput: {fileID: 783419834}
+  heightInput: {fileID: 1801337360}
   cellGridObject: {fileID: 495917689}
-  gridSize: {x: 100, y: 100}
+  gridSize: {x: 50, y: 50}
   isSimulating: 0
+  is3d: 0
   simSpeed: 1
 --- !u!4 &332395890
 Transform:
@@ -710,7 +713,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 50
 --- !u!222 &419395436
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -731,6 +734,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell Grid
       objectReference: {fileID: 0}
+    - target: {fileID: 9016616080524024056, guid: 941c8187dbde2404399eb767d7fb176a,
+        type: 3}
+      propertyPath: cellPrefab
+      value: 
+      objectReference: {fileID: 3580447537767370119, guid: dab357f78f44c2a4db37670e87c654f8,
+        type: 3}
     - target: {fileID: 9016616080524024057, guid: 941c8187dbde2404399eb767d7fb176a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1268,8 +1277,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 332395889}
-        m_MethodName: SetWidth
-        m_Mode: 3
+        m_MethodName: SetHeightWidth
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1284,7 +1293,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 
+  m_Text: 50
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1509,7 +1518,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911840318}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -1620,7 +1629,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -12, y: 92, z: 0}
+  m_LocalPosition: {x: -12, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2084,8 +2093,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 332395889}
-        m_MethodName: SetHeight
-        m_Mode: 3
+        m_MethodName: SetHeightWidth
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2100,7 +2109,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 
+  m_Text: 50
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -2210,7 +2219,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 50
 --- !u!222 &1861536517
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class Cell : MonoBehaviour
 
     public bool isAlive;
     public bool tempAlive;
-    public Vector2 position;
+    public Vector3Int position;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class Cell : MonoBehaviour
 
     public void UpdateCellDisplay()
     {
-        GetComponent<Renderer>().material = (isAlive ? skins[1] : skins[0]);
+        GetComponent<Renderer>().enabled = isAlive;
     }
 
     public void SetTempAlive(bool alive)

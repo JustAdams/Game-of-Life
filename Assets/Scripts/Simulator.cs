@@ -9,6 +9,9 @@ public class Simulator : MonoBehaviour
     public Button simulateButton;
     public Button resetButton;
     public Text generationText;
+    public InputField widthInput;
+    public InputField heightInput;
+
 
     public CellGrid cellGridObject;
 
@@ -17,14 +20,12 @@ public class Simulator : MonoBehaviour
 
     public bool isSimulating;
 
-    public void SetHeight(int height)
-    {
-        gridSize.y = height;    
-    }
+    public bool is3d;
 
-    public void SetWidth(int width)
+    public void SetHeightWidth()
     {
-        gridSize.x = width;
+        gridSize.x = int.Parse(widthInput.textComponent.text);
+        gridSize.y = int.Parse(heightInput.textComponent.text);
     }
 
     public void SetSimSpeed(float speed)
@@ -92,16 +93,13 @@ public class Simulator : MonoBehaviour
         return neighbors;
     }
 
-    private void Update()
-    {
-        generationText.text = "Generation: " + generation;
-    }
 
     /// <summary>
     /// Set a randomized grid of living cells
     /// </summary>
     public void RandomizeGrid()
     {
+        CreateNewGrid();
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
@@ -119,7 +117,7 @@ public class Simulator : MonoBehaviour
     public void SimulateGeneration()
     {
         generation++;
-
+        generationText.text = "Generation: " + generation;
         for (int x = 1; x < gridSize.x - 1; x++)
         {
             for (int y = 1; y < gridSize.y - 1; y++)
