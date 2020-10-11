@@ -49,6 +49,8 @@ public class CellGrid : MonoBehaviour
             }
         }
 
+        Camera.main.GetComponent<CameraController>().UpdateCameraPosition(gridSize);
+
         return cellGrid;
     }
 
