@@ -3,7 +3,7 @@
  
 In which I recreate Conways infamous game of life
 
-![alt game of life](https://github.com/JustAdams/Game-of-Life/blob/main/Assets/d7ymoaxwa2.gif?raw=true "Game of Life")
+![alt game of life](https://github.com/JustAdams/Game-of-Life/blob/main/Assets/Docs/d7ymoaxwa2.gif?raw=true "Game of Life")
 
 Rules:
 1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.
